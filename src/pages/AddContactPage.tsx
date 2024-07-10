@@ -34,9 +34,11 @@ const AddContactPage = () => {
     latitude: 0,
   };
 
+  const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/
+
   const validationSchema = Yup.object().shape({
     name: Yup.string().required("Name is required"),
-    phoneNumber: Yup.string().required("Phone number is required"),
+    phoneNumber: Yup.string().matches(phoneRegExp, 'Phone number is not valid').required("Phone number is required"),
     email: Yup.string().email("Invalid email").required("Email is required"),
     addresses: Yup.array()
       .of(Yup.string().required("Address cannot be empty"))
